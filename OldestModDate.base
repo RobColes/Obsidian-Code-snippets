@@ -1,0 +1,15 @@
+views:
+  - type: table
+    name: Oldest Modified Date
+    filters:
+      not:
+        - file.folder.contains("_")
+    order:
+      - file.name
+      - file.mtime
+    sort:
+      - property: file.mtime
+        direction: ASC
+    limit: 10
+    columnSize:
+      file.name: 690

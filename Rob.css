@@ -1,0 +1,280 @@
+/* obsidian-calendar-plugin */
+/* https://github.com/liamcain/obsidian-calendar-plugin */
+/* https://github.com/liamcain/obsidian-calendar-plugin/wiki */
+/* Rob set to small, no dots or tasks. Had to add .day selector for font size 2022-05-21 */
+/* Minimal changing again. Maybe go back to default?  */
+
+/*** #calendar-container .day {
+    font-size: 12px;
+}
+
+#calendar-container th {
+    padding: 2px;
+}
+
+#calendar-container .day,
+#calendar-container .week-num {
+    padding: 2px;
+}
+
+#calendar-container .hollow {
+    display: none;
+}
+
+#calendar-container .dot-container {
+    display: none;
+}
+****/
+
+.dnc th,
+.dnc td {
+    padding: 0em;
+}
+
+.dnc th {
+    opacity: 100%;
+}
+
+/* DNC CSS from https://github.com/bartkessels/daily-note-calendar/issues/72  */
+
+
+/* fix title of calendar */
+.dnc .header {
+    /* background: red; */
+    margin: auto;
+    border-radius: 4px;
+}
+
+.dnc .header h1 {
+    font-weight: var(--font-bold);
+    color: white;
+}
+
+.dnc .header span.title {
+    margin: auto;
+    /* centers the title */
+}
+
+.dnc .other-month {
+    opacity: 80%;
+}
+
+
+
+/* Status bar text hard to see - may be better to change the definition of  var(--text-faint) as this will be unreadable everywhere? */
+.status-bar {
+    color: whitesmoke;
+}
+
+/* Don't like the tags  */
+.cm-hashtag {
+    background: #712db5;
+    color: white;
+}
+
+/* Highlight active line */
+.cm-active {
+    background-color: rgb(53, 52, 52);
+}
+
+
+/* Didn't like half or strikethrough done. Half not great on mobile */
+.anp-custom-checkboxes [data-task="/"] input[type=checkbox]:checked,
+.anp-custom-checkboxes [data-task="/"][type=checkbox]:checked {
+    border-width: 0;
+
+}
+
+.anp-custom-checkboxes [data-task="/"] input[type=checkbox]:checked:after,
+.anp-custom-checkboxes [data-task="/"][type=checkbox]:checked:after {
+    top: -10;
+    left: 0;
+    content: '\25EA';
+    position: absolute;
+    -webkit-mask-image: none;
+    font-size: large;
+}
+
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="x"],
+.markdown-source-view.mod-cm6 .HyperMD-task-line[data-task="X"] {
+    text-decoration: none;
+}
+
+/*  Dataview tweak - number  */
+.table-view-table {
+    counter-reset: section;
+}
+
+.table-view-table>tbody>tr>td:first-child::before {
+    counter-increment: section;
+    content: counter(section) ". ";
+}
+
+/* Background for selected items */
+.suggestion-item.is-selected {
+    background-color: darkblue;
+}
+
+/* Canvas cards to look like post-its - experimental, from https://discord.com/channels/686053708261228577/1050087185602334833/1095944139113254952?ref=eleanorkonik.com  */
+.canvas-node .canvas-node-container {
+    border-radius: 4px;
+    border: none;
+}
+
+.canvas-node-container,
+.canvas-node.is-themed .canvas-node-container {
+    box-shadow: 0px 2px 7px 1px rgba(0, 0, 0, 0.5);
+}
+
+.canvas-node.is-focused .canvas-node-container,
+.canvas-node.is-focused.is-themed .canvas-node-container {
+    box-shadow: 0px 1px 4px 1px rgba(0, 0, 0, 0.5);
+}
+
+.canvas-node.is-focused.is-themed.is-editing .canvas-node-container {
+    border: 2px solid rgba(var(--canvas-color), 0.3);
+}
+
+.canvas-node.is-themed .canvas-node-content {
+    background-color: rgba(var(--canvas-color), 0.3);
+}
+
+/* Obsidian update 2023-05-20 changed "last changed" list. Make it consistent. */
+/* 2025-02-16 Not using this plug-in anymore */
+/* .recent-files-title-content {
+    font-size: var(--nav-item-size);
+    color: var(--nav-item-color);
+} */
+
+/*  More rounded corners, own callouts  */
+.callout {
+    border-radius: 8px;
+    border-width: 1px;
+}
+
+.callout-title-inner {
+    padding-top: 0.25em;
+}
+
+.callout[data-callout="randomnote"] {
+    --callout-color: 31, 182, 85;
+    --callout-icon: lucide-flower-2;
+}
+
+
+/* Couldn't see table borders or HR easily, allow stacked pane to take up whole screen even if room for more */
+/* Bases font a bit bigger - was 14px */
+body {
+    --table-border-color: gray;
+    --hr-color: gray;
+    --tab-stacked-pane-width: 100%;
+    --bases-table-text-size: 16px;
+}
+
+/*
+ * ========================================================
+ * PREVIEW MODE
+ * ========================================================
+ */
+
+/* Center tables on the page */
+.markdown-preview-view table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+ * ========================================================
+ * LIVE PREVIEW MODE
+ * ========================================================
+ */
+
+/* Center tables on the page */
+.markdown-rendered table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Dump line above table  */
+.cm-line:has(+ .cm-embed-block.cm-table-widget) br {
+    display: none;
+}
+
+/* Day planner OG text more readable. Was ctp-base, black */
+.ei_Copy {
+    --text-on-accent: rgb(var(--bright-white));
+}
+
+
+/**** Metabind Progress bar
+.mb-progress-bar-progress {
+    background: var(--color-red);
+}
+
+.mb-progress-bar-label-left,
+.mb-progress-bar-value,
+.mb-progress-bar-label-right {
+    color: yellow;
+}   */
+
+
+/* Recent Files plugin - reduce space between items, make selection less glaring */
+.recent-note-item {
+    padding: 0px 0px;
+}
+
+.recent-notes-view h6 {
+    top: -14px;
+    padding: 6px 0px;
+    margin: 10px 0px 0px 0px;
+}
+
+/* .recent-note-item.is-active {
+    /* background-color: var(--background-secondary-alt);
+    color: white; 
+} */
+
+/*
+.recent-note-item.is-active .recent-note-date {
+    color: var(--text-muted);
+}
+
+.recent-note-item.is-active .recent-note-info {
+    color: var(--text-muted);
+}
+
+*/
+
+/* Hide %%...%% comments in Live Preview  */
+.is-live-preview .cm-comment {
+    display: none;
+}
+
+/* Experimenting with Metabind */
+/* Tried flex and inline-flex but it wasn't working, Obsidian still wrapped the line */
+.mb-input input[type="text"] {
+    width: 800px;
+}
+
+textarea,
+input.metadata-input-text,
+input[type='date'],
+input[type='datetime-local'],
+input[type='text'],
+input[type='search'],
+input[type='email'],
+input[type='password'],
+input[type='number'] {
+    font-family: var(--font-text);
+    font-size: var(--font-text-size);
+}
+
+.my-mb-h1 input {
+    font-variant: var(--h1-variant);
+    letter-spacing: -0.015em;
+    line-height: var(--h1-line-height);
+    font-size: var(--h1-size);
+    color: var(--h1-color);
+    font-weight: var(--font-weight);
+    font-style: var(--h1-style);
+}

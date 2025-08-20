@@ -1,0 +1,23 @@
+properties:
+  file.name:
+    displayName: Name
+  note.summary:
+    displayName: summary
+  file.day:
+    displayName: file.day
+views:
+  - type: table
+    name: Today in History
+    filters:
+      and:
+        - file.inFolder("Journal")
+        - file.name.slice(0, 5) != this.file.name.slice(0, 5)
+        - file.name.slice(8, 10) == this.file.name.slice(8, 10)
+        - file.name.slice(5, 7) == this.file.name.slice(5, 7)
+        - Summary
+    order:
+      - file.name
+      - summary
+      - file.day
+    sort:
+      - file.name

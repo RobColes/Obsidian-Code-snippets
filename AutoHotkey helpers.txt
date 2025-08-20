@@ -1,0 +1,132 @@
+;; These are some of the Autohotkey functions I use with Obsidian
+
+obsPath := EnvGet("ObsidianPath")
+obsScratch := obsPath . "Transient\Scratchpad.md"
+
+; Create the next week menu. Used for scheduled and last viewed date entry. Bound to Windows-Shift-R
+today := A_Now
+today := DateAdd(today, 1, "Days")  ; start from tomorrow
+MyMenu := Menu()
+; Generate the next 7 days
+Loop 7 {
+    day := FormatTime(today, "dddd, yyyy-MM-dd")
+    MyMenu.Add(day, MenuHandler)
+    today := DateAdd(today, 1, "Days")
+}
+
+MenuHandler(Item, *) {
+parts := StrSplit(Item, ",") ; Split the string on the comma
+isoDate := Trim(parts[2])
+    SendInput("Reminder:: " isoDate)
+}
+
+;;^+h::run obsidian://open?vault=Robsidian&file=Transient`%2FHome`%20Daily
+
+;; ToDo: Multiline quick capture
+#o::
+{ ; V1toV2: Added bracket
+IB := InputBox("Text to append", "Obsidian Scratchpad Append", "w640 h100"), stuff := IB.Value, ErrorLevel := IB.Result="OK" ? 0 : IB.Result="CANCEL" ? 1 : IB.Result="Timeout" ? 2 : "ERROR"
+if ErrorLevel
+	return
+FileAppend("`n" stuff " `n", obsPath "Transient\Scratchpad.md")
+} ; V1toV2: Added Bracket before hotkey or Hotstring
+#+o::MultiLineInputBox(, obsScratch)
+#+r::MyMenu.Show()				  
+
+#t::Run("pythonw C:\MyCode\ObsTask\obstask.py")
+
+;HostStrings
+:*:;ad::Add-LocalGroupMember -Group "Administrators" -Member "uniwa\00091092"
+:*:;az::az.uwa.edu.au
+:*:;dd::  ; This hotstring replaces ";dd" with the current date via the commands below.
+{
+CurrentDateTime := FormatTime(, "dd/MM/yyyy")
+SendInput(CurrentDateTime)
+}
+:*:;di::  ; ISO
+{
+CurrentDateTime := FormatTime(, "yyyy-MM-dd")
+SendInput(CurrentDateTime)
+}
+:*:;dj::  ; ISO with time formated for filename
+{
+CurrentDateTime := FormatTime(, "yyyy-MM-dd_HH-mm-ss")
+SendInput(CurrentDateTime)
+}
+:*:;dt::  ; This hotstring replaces ";dt" with the current date and time via the commands below.
+{
+CurrentDateTime := FormatTime(, "dd/MM/yyyy HH:mm:ss")
+SendInput(CurrentDateTime)
+}
+:*:;dw::
+{
+CurrentDate := A_Now
+CurrentDate := DateAdd(CurrentDate, 7, 'D')
+NextWeek := FormatTime(CurrentDate, "yyyy-MM-dd")
+SendInput(NextWeek)
+}
+;; Obsidian highlighta
+:*:;hg::<mark class="green"></mark>{left}{left}{left}{left}{left}{left}{left}
+:*:;hy::<mark class="yellow"></mark>{left}{left}{left}{left}{left}{left}{left}
+
+:*:;hw::{#}Home - [[Weekend]] {enter}
+:*:;h1::{#}Home - [[1-Today]] {enter}
+:*:;h2::{#}Home - [[2-ThisWeek]] {enter}
+:*:;h3::{#}Home - [[3-Soon]] {enter}
+:*:;h5::{#}Home - [[5-Someday]] {enter}
+:*:;h6::{#}Home - [[6-Waiting]] {enter}
+:*:;nx::{
+    Send('^i')
+}
+:*:;oa::AlcoholUnits: {``}INPUT[number(defaultValue(0)):AlcoholUnits]{``}{enter}
+:*:;ob::BestSelf: {``}INPUT[text(placeholder('')):BestSelf]{``}{enter}
+:*:;oc::CFW: {``}INPUT[number(defaultValue(0)):CFW]{``}{enter}
+:*:;oh::{
+    Send('^i')
+}
+:*:;oj::{
+    Send('^i')
+}
+:*:;ol::{
+    Send('^i')
+}
+:*:;on::{
+    Send('^i')
+}
+:*:;os::{
+    Send('^i')
+}
+:*:;ot::Timeline: {``}INPUT[text(placeholder('')):Timeline]{``}{enter}
+:*:;ou::{
+    Send('^i')
+}
+:*:;pj::-path:journal
+:*:;tp::🌓
+:*:;tt::✅
+:*:;tu::☐
+:*:;tx::❌
+
+;;; --------------------------------------------------------------------------------------------
+; Multi-line form for Obsidian capture.
+MultiLineInputBox(Text:="", obsFile:= "")
+{
+    MyGui := Gui(, "Obsidian append")
+        MyGui.Add("Text",, "Enter the note contents to append to the file named below")
+        MyGui.AddEdit("r9 vMyEdit w480")
+        MyGui.AddEdit("vFileName w480", obsFile)
+        MyGui.Add("Button", "default w80", "OK").OnEvent("Click", AppendToFile)   ; Make wider so easy to hit
+        MyGui.Add("Button", 'yp', "Cancel").OnEvent("Click", Cancel)              ; yp is new column, not new row
+    MyGui.Show()
+
+    AppendToFile(*)
+    {
+        Saved := MyGui.Submit()  ; Save the contents of named controls into an object.
+    ;;;    MsgBox("You entered:" Saved.MyEdit "," Saved.FileName)
+                FileAppend("`n" Saved.MyEdit "`n", Saved.FileName)
+    }
+    Cancel(*)
+    {
+    ;;;    MsgBox("You cancelled")
+        MyGui.Hide()
+    }
+}

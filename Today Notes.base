@@ -1,0 +1,16 @@
+views:
+  - type: table
+    name: Next options
+    filters:
+      and:
+        - file.folder == "ToDo"
+        - file.links.contains("1-Today")
+        - Scheduled.isEmpty()
+    order:
+      - file.name
+      - Next
+    sort:
+      - property: file.ctime
+        direction: ASC
+    columnSize:
+      file.name: 359

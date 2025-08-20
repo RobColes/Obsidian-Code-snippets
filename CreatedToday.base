@@ -1,0 +1,22 @@
+filters:
+  not:
+    - file.folder.contains("_")
+properties:
+  file.name:
+    displayName: Name
+  note.next:
+    displayName: next
+views:
+  - type: table
+    name: Today's files
+    filters:
+      and:
+        - date(file.ctime).format("YYYY-MM-DD") == this.file.name
+    order:
+      - file.name
+    sort:
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 718
+      property.next: 536
