@@ -11,6 +11,7 @@ These are some of the bits of code that I use in my Obsidian vault. They are oft
 As of 2025-08-20, Datacore was still in beta, so needed to be installed using BRAT. I have replaced all dataview in my vault with bases or datacore.
 ## ProgressBarTasks.md
 ![Progress bar](images/progressbar.png)
+
 This is a datacore progress bar that I imbed using dynamic imbed (so that it uses the owning file for the query) that will look for all tasks, and all completed tasks in the note and provide a quick visual summary of the progress. 
 ````
 ```dynamic-embed
@@ -22,6 +23,13 @@ I use this in many of my 25 for 2025 notes, and use the progress bar code itself
 The file is kept in my _Templates folder.
 
 ## Time Progression.md
+![Time progression chart](images/timespan.png)
+
+This is my version of Mike Schmitz's memento mori and Joshi Pax's extension. It's a datacore query that I imbed in my daily note as a reminder. I don't update it dynamically (you could get it to update the day percentage periodically).
+
+To use, you would need to update the birthday and lifespanYears variables. I calculated the lifespan years from an online calculator that took into account my diet, exercise and where I lived etc.
+
+I use the same dynamic imbed plug-in as for the progressbartasks above to include this file, as using a regular imbed gave me issues on mobile.
 
 # Quickadd Macro
 ## InputHelper.js
