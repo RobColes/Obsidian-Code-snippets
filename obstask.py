@@ -16,12 +16,15 @@ class ObsidianTodoCreator:
         self.root.title("Obsidian To-Do Creator")
         self.root.geometry("500x400")  # Increased height for new field
         self.root.resizable(width=False, height=False)
+        # Multiple focus-grabbing techniques for Windows
         self.root.lift()  # Bring window to the top of the stack
         self.root.attributes("-topmost", True)  # Set it as topmost (on top of others)
         self.root.focus_force()  # Force focus to this window
+        self.root.grab_set()  # Make window modal temporarily
         self.root.after(
             100, lambda: self.root.attributes("-topmost", False)
         )  # Remove 'always on top' after 100ms
+        self.root.after(150, lambda: self.root.grab_release())  # Release modal grab
         # Configuration - UPDATE THESE PATHS
         self.vault_path = r"C:\Obsidian\Robsidian"
 
@@ -39,7 +42,11 @@ class ObsidianTodoCreator:
         self.date_options = self.calculate_date_options()
 
         self.create_widgets()
+        # Multiple delayed focus attempts with increasing delays
+        self.root.after(100, lambda: self.title_entry.focus_set())
+        self.root.after(200, lambda: self.title_entry.focus_force())
         self.root.after(300, lambda: self.title_entry.focus())
+        self.root.after(400, lambda: self.title_entry.selection_range(0, tk.END))
 
     def calculate_date_options(self):
         """Calculate pre-defined date options based on current date."""
@@ -261,6 +268,8 @@ class ObsidianTodoCreator:
             sticky=(tk.W, tk.E),
             pady=(0, 15),
         )
+        # Immediate focus attempt
+        self.title_entry.focus_set()
         # Parse natural language input when leaving the title field
         self.title_entry.bind("<FocusOut>", self.on_title_focus_out)
 
