@@ -18,6 +18,7 @@ class ObsidianTodoCreator:
         self.root.resizable(width=False, height=False)
         self.root.lift()  # Bring window to the top of the stack
         self.root.attributes("-topmost", True)  # Set it as topmost (on top of others)
+        self.root.focus_force()  # Force focus to this window
         self.root.after(
             100, lambda: self.root.attributes("-topmost", False)
         )  # Remove 'always on top' after 100ms

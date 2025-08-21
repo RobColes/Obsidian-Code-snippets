@@ -41,6 +41,7 @@ I use the same dynamic imbed plug-in as for the progressbartasks above to includ
 
 # Bases
 ## CreatedToday.base
+## HabitSummary.base_imbed
 ## OldestModDate.base
 ## PreviousYears.base
 ## ThisWeek Notes.base

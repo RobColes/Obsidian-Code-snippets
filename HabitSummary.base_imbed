@@ -1,0 +1,58 @@
+```base
+formulas:
+  StepF: if(StepCount > 6999, "🟢", "❌")
+  AlcoholF: if(AlcoholUnits != 0, "❌", "🟢")
+  MusicF: if(Music, "🟢", "❌")
+  NoSnackF: if(NoSnack, "🟢", "❌")
+  SupplementsF: if(Supplements, "🟢", "❌")
+  WordleF: if(Wordle, "🟢", "❌")
+  JournalF: if(Meditate, "🟢", "❌")
+  WaterF: if(Water, "🟢", "❌")
+properties:
+  file.name:
+    displayName: Name
+  formula.WaterF:
+    displayName: Water
+  formula.StepF:
+    displayName: Steps
+  formula.AlcoholF:
+    displayName: No Alcohol
+  formula.MusicF:
+    displayName: Music
+  formula.NoSnackF:
+    displayName: No Snack
+  formula.SupplementsF:
+    displayName: Supplements
+  formula.WordleF:
+    displayName: Wordle
+  formula.JournalF:
+    displayName: Meditate
+views:
+  - type: table
+    name: Habits summary
+    filters:
+      and:
+        - date(file.name) >= date(this.file.name) - "6d"
+        - date(file.name) <= date(this.file.name)
+        - file.folder.contains("Journal")
+        - '!file.name.containsAny("W", "Q")'
+    order:
+      - file.name
+      - StepCount
+      - formula.StepF
+      - formula.AlcoholF
+      - formula.MusicF
+      - formula.NoSnackF
+      - formula.WaterF
+      - formula.SupplementsF
+      - formula.WordleF
+      - formula.JournalF
+    sort:
+      - property: file.name
+        direction: DESC
+    columnSize:
+      formula.SupplementsF: 132
+      formula.WordleF: 108
+      formula.JournalF: 122
+
+```
