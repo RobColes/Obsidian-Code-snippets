@@ -1,7 +1,9 @@
 """Obsidian To-Do Creator - GUI app for creating markdown notes."""
 
+import ctypes
 import re
 import tkinter as tk
+from ctypes import wintypes
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from tkinter import messagebox, ttk
@@ -16,15 +18,22 @@ class ObsidianTodoCreator:
         self.root.title("Obsidian To-Do Creator")
         self.root.geometry("500x400")  # Increased height for new field
         self.root.resizable(width=False, height=False)
-        # Multiple focus-grabbing techniques for Windows
-        self.root.lift()  # Bring window to the top of the stack
-        self.root.attributes("-topmost", True)  # Set it as topmost (on top of others)
-        self.root.focus_force()  # Force focus to this window
-        self.root.grab_set()  # Make window modal temporarily
-        self.root.after(
-            100, lambda: self.root.attributes("-topmost", False)
-        )  # Remove 'always on top' after 100ms
-        self.root.after(150, lambda: self.root.grab_release())  # Release modal grab
+        # Windows-specific focus techniques for first launch
+        self.root.wm_attributes("-topmost", True)
+        self.root.lift()
+        self.root.focus_force()
+
+        # Iconify/deiconify trick often works on Windows
+        self.root.iconify()
+        self.root.update()
+        self.root.deiconify()
+
+        # Set window state and protocol
+        self.root.state("normal")
+        self.root.protocol("WM_TAKE_FOCUS", self._on_take_focus)
+
+        # Delayed cleanup of topmost
+        self.root.after(200, lambda: self.root.wm_attributes("-topmost", False))
         # Configuration - UPDATE THESE PATHS
         self.vault_path = r"C:\Obsidian\Robsidian"
 
@@ -42,11 +51,40 @@ class ObsidianTodoCreator:
         self.date_options = self.calculate_date_options()
 
         self.create_widgets()
-        # Multiple delayed focus attempts with increasing delays
-        self.root.after(100, lambda: self.title_entry.focus_set())
-        self.root.after(200, lambda: self.title_entry.focus_force())
-        self.root.after(300, lambda: self.title_entry.focus())
-        self.root.after(400, lambda: self.title_entry.selection_range(0, tk.END))
+        # Enhanced entry field focus with multiple techniques
+        self._focus_title_entry()
+
+    def _on_take_focus(self):
+        """Handle WM_TAKE_FOCUS protocol."""
+        self.root.focus_force()
+        if hasattr(self, "title_entry"):
+            self.title_entry.focus_force()
+
+    def _focus_title_entry(self):
+        """Enhanced focus methods for title entry field."""
+        if hasattr(self, "title_entry"):
+            # Immediate focus
+            self.title_entry.focus_set()
+            self.title_entry.focus_force()
+
+            # Delayed attempts with different methods
+            self.root.after(50, lambda: self.title_entry.focus())
+            self.root.after(100, lambda: self.title_entry.focus_force())
+            self.root.after(200, lambda: self.title_entry.focus_set())
+            self.root.after(
+                300,
+                lambda: setattr(
+                    self.title_entry, "focus", lambda: self.title_entry.focus_force()
+                ),
+            )
+
+            # Final attempt with selection
+            self.root.after(
+                400,
+                lambda: self.title_entry.selection_range(0, tk.END)
+                if self.title_entry.get()
+                else None,
+            )
 
     def calculate_date_options(self):
         """Calculate pre-defined date options based on current date."""
@@ -90,6 +128,10 @@ class ObsidianTodoCreator:
 
     def on_date_selected(self, _event):
         """Handle date selection from dropdown."""
+        if self.date_var.get():
+            self.priority_var.set("6-Waiting")
+        else:
+            self.priority_var.set("1-Today")  # Reset to default if date is cleared
         # Placeholder for future enhancements
 
     def on_date_changed(self, _event):
@@ -268,8 +310,9 @@ class ObsidianTodoCreator:
             sticky=(tk.W, tk.E),
             pady=(0, 15),
         )
-        # Immediate focus attempt
+        # Immediate focus attempt and delayed enhanced focus
         self.title_entry.focus_set()
+        self._focus_title_entry()
         # Parse natural language input when leaving the title field
         self.title_entry.bind("<FocusOut>", self.on_title_focus_out)
 
@@ -447,7 +490,32 @@ class ObsidianTodoCreator:
 
     def run(self):
         """Start the GUI application main loop."""
+        # Final activation attempt before starting mainloop
+        self.root.after(50, self._final_activation)
         self.root.mainloop()
+
+    def _final_activation(self):
+        """Activate Final window activation and focus attempt."""
+        try:
+            # Windows-specific activation
+
+            # Get window handle
+            hwnd = int(self.root.winfo_id())
+
+            # Bring to foreground
+            ctypes.windll.user32.SetForegroundWindow(hwnd)
+            ctypes.windll.user32.ShowWindow(hwnd, 9)  # SW_RESTORE
+            ctypes.windll.user32.SetActiveWindow(hwnd)
+
+        except (ImportError, AttributeError):
+            # Fallback for non-Windows or if ctypes fails
+            pass
+
+        # Tkinter fallback methods
+        self.root.lift()
+        self.root.focus_force()
+        if hasattr(self, "title_entry"):
+            self.title_entry.focus_force()
 
 
 if __name__ == "__main__":
