@@ -71,6 +71,8 @@ This is a quick capture attempt. I have quick capture built into AutoHotkey, but
 
 There is a quick entry built in allowing all fields to be populated from the Note Title field. This was an experiment in vibe coding.
 
+I broadly follow a GTD/Secret weapon workflow.
+
 # Bases
 ### CreatedToday.base
 ### HabitSummary.base_imbed
