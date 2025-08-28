@@ -69,14 +69,23 @@ This is a quick capture attempt. I have quick capture built into AutoHotkey, but
 
 ![Task entry](images/obstask.png)
 
-There is a quick entry built in allowing all fields to be populated from the Note Title field. This was an experiment in vibe coding.
+There is a natural language entry built in allowing all fields to be populated from the Note Title field. This was an experiment in vibe coding.
 
-I broadly follow a GTD/Secret weapon workflow.
+I broadly follow a [GTD](https://gettingthingsdone.com/)/[Secret weapon](https://thesecretweapon.org/the-secret-weapon-manifesto/the-secret-weapon/) workflow. 
 
 # Bases
 ### CreatedToday.base
+This is a base I imbed in my daily note that shows all notes with a created date that matches the file name. My daily notes are all named following the YYYY-MM-DD convention.
+
 ### HabitSummary.base_imbed
+I track a few habits using YAML and this is a quixk way to get an overview. This is an inline base rather than an imbed as the habits I am tracking can change through the year. I'm doing "tiny experiments" lasting a month, with meditation being the current one. 
+![Habit tracker image](images/tracker.png)
+I was using a red "X" instead of the red exclamation mark, but this wasn't rendering correctly on Linux Mint.
+
+The daily capture uses Meta bind to make maintaining the YAML easy. It looks like:
+![Habit capture](images/habits.png)
 ### OldestModDate.base
+
 ### PreviousYears.base
 ### ThisWeek Notes.base
 ### Today Notes.base
