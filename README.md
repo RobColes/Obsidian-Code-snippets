@@ -1,6 +1,34 @@
 # Obsidian-Code-snippets
 These are some of the bits of code that I use in my Obsidian vault. They are often specific to my workflow and note structure, so please don't just run them, but use them as a reference or starting point for your own customisations. 
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Datacore](#datacore)
+  - [ProgressBarTasks.md](#progressbartasksmd)
+  - [Time Progression.md](#time-progressionmd)
+- [Quickadd Macro](#quickadd-macro)
+  - [InputHelper.js](#inputhelperjs)
+  - [LastUpdated.js](#lastupdatedjs)
+  - [UnSchedule.js](#unschedulejs)
+- [Python](#python)
+  - [obstask.py](#obstaskpy)
+- [Bases](#bases)
+  - [CreatedToday.base](#createdtodaybase)
+  - [HabitSummary.base_imbed](#habitsummarybase_imbed)
+  - [OldestModDate.base](#oldestmoddatebase)
+  - [PreviousYears.base](#previousyearsbase)
+  - [ThisWeek Notes.base](#thisweek-notesbase)
+  - [Today Notes.base](#today-notesbase)
+  - [WeeklySummary.base](#weeklysummarybase)
+- [Miscellaneous](#miscellaneous)
+  - [AutoHotkey helpers.txt](#autohotkey-helperstxt)
+  - [Callout Insert.md](#callout-insertmd)
+  - [Current Plugins.md](#current-pluginsmd)
+  - [Kanban Weekly No Reminders.md](#kanban-weekly-no-remindersmd)
+  - [Random Wikipedia Page.md](#random-wikipedia-pagemd)
+  - [Rob.css](#robcss)
+
 # Installation
 1. Download the code from this repository.
 2. Place the downloaded files in the appropriate Obsidian folder:
@@ -78,7 +106,7 @@ I broadly follow a [GTD](https://gettingthingsdone.com/)/[Secret weapon](https:/
 This is a base I imbed in my daily note that shows all notes with a created date that matches the file name. My daily notes are all named following the YYYY-MM-DD convention.
 
 ### HabitSummary.base_imbed
-I track a few habits using YAML and this is a quixk way to get an overview. This is an inline base rather than an imbed as the habits I am tracking can change through the year. I'm doing "tiny experiments" lasting a month, with meditation being the current one. 
+I track a few habits using YAML and this is a quick way to get an overview. This is an inline base rather than an imbed as the habits I am tracking can change through the year. I'm doing "tiny experiments" lasting a month, with meditation being the current one. 
 ![Habit tracker image](images/tracker.png)
 I was using a red "X" instead of the red exclamation mark, but this wasn't rendering correctly on Linux Mint.
 
