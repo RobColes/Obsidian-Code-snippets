@@ -92,7 +92,7 @@ Which looks like:
 This is just a quick way to remove the frontmatter and metabind entries for the scheduled date and next action. Typically I would use this if I had a task I had needed to do, but I had made useful notes that I wanted to keep. I would remove the next action and scheduled date and then move the note to archive.
 
 # Python
-### obstask.py
+### obstask.pyw
 This is a quick capture attempt. I have quick capture built into AutoHotkey, but that just captures text. This function allows quick capture specifically for new tasks and includes my prioritisation, tags and frontmatter/metabind.
 
 ![Task entry](images/obstask.png)
@@ -113,10 +113,18 @@ I was using a red "X" instead of the red exclamation mark, but this wasn't rende
 The daily capture uses Meta bind to make maintaining the YAML easy. It looks like:
 ![Habit capture](images/habits.png)
 ### OldestModDate.base
+This base is a part of my [Note Gardening](https://robcoles.net/posts/note-gardening/) process. It will use the Obsidian/System last modified date and just display the 10 oldest notes. I look at this list as part of my weekly review and will cleanup, link or delete as needed.
 
 ### PreviousYears.base
+This is my version of "On this day in history". This base will display a list of my notes from my journal for the same month and day, excluding today's note. It's in a callout to allow it to be hidden. I am going through a process of transcribing the last 4 years from a 5-year diary so the usefulness will increase as more data is available.
+![Previous Years Base](images/previousyears.png)
+
 ### ThisWeek Notes.base
+This base is imbedded in my daily note and is a part of my daily planning process. It selects all notes with a link of "2-ThisWeek" which are notes I want to deal with this week but not necessarily immediately. This base is inside a callout. When I'm looking at what I will do today, depending on what other commitments I have I will review this list and either pull an entry out to work on today if I have capacity (Changing the link to 1-Today), demoting it to "3-Soon" or deleting it if it isn't relevant any more. The links are based on a [GTD](https://gettingthingsdone.com/)/[Secret weapon](https://thesecretweapon.org/the-secret-weapon-manifesto/the-secret-weapon/) workflow.
+![This Week Notes base](images/previousyears.png)
+
 ### Today Notes.base
+
 ### WeeklySummary.base
 
 # Miscellaneous
